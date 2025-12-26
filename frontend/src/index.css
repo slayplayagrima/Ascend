@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #122b1d;      /* Dark Jungle Green */
+  --bg-secondary: #537e72;    /* William Hooker’s Green */
+  --accent-primary: #9cc97f;  /* Pistachio */
+  --bg-light: #cddecb;        /* Light Gray */
+  --accent-secondary: #90b7bf;/* Pewter Blue */
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--bg-light);
+  font-family: Inter, system-ui, sans-serif;
+}
+
