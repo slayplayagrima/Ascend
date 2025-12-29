@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 function HeroIntro() {
+
+  const navigate = useNavigate();
   return (
     <section className="min-h-screen px-4 sm:px-10 py-16 sm:py-20 bg-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -34,6 +38,7 @@ function HeroIntro() {
           {/* CTA Buttons */}
           <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
             <button
+              onClick={() => navigate("/auth?mode=signup")}
               className="
                 px-10 py-3 rounded-xl font-medium
                 bg-[var(--accent-primary)]
@@ -46,6 +51,7 @@ function HeroIntro() {
             </button>
 
             <button
+              onClick={() => navigate("/auth?mode=login")}
               className="
                 px-10 py-3 rounded-xl font-medium
                 border border-[var(--accent-primary)]
