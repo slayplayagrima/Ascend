@@ -6,7 +6,7 @@ function DashboardStats() {
   const pnlPercent = ((pnl / invested) * 100).toFixed(1);
 
   return (
-    <section className="w-full px-12 pt-10 pb-4">
+    <section className="w-full px-12 pt-15 pb-4">
       <div className="flex bg-[var(--accent-)] items-center justify-between">
 
         {/* LEFT: Market Status */}
@@ -16,11 +16,11 @@ function DashboardStats() {
               marketOpen ? "bg-green-400" : "bg-red-400"
             }`}
           />
-          <div className="flex flex-col leading-tight">
-            <span className="pb-1.5 text-xs text-[var(--bg-light)]/70">
+          <div className="flex text-center flex-col leading-tight">
+            <span className="pb-1.5 text-xs text-[var(--bg-light)]">
               MARKET STATUS
             </span>
-            <span className="text-sm text-white font-medium">
+            <span className="text-m text-white font-medium">
               {marketOpen ? "NSE/BSE OPEN" : "NSE/BSE CLOSED"}
             </span>
           </div>
@@ -36,8 +36,8 @@ function DashboardStats() {
           />
 
           {/* Current Value */}
-          <div className="flex flex-col gap-1">
-            <span className="text-xs text-[var(--bg-light)]/70">
+          <div className="flex text-center flex-col gap-1">
+            <span className="text-xs text-[var(--bg-light)]">
               CURRENT VALUE
             </span>
             <div className="flex items-center gap-2">
@@ -57,8 +57,8 @@ function DashboardStats() {
           />
 
           {/* Total P/L */}
-          <div className="flex flex-col gap-1">
-            <span className="text-xs text-[var(--bg-light)]/70">
+          <div className="flex text-center flex-col gap-1">
+            <span className="text-xs text-[var(--bg-light)]">
               TOTAL P/L
             </span>
             <span
@@ -80,8 +80,8 @@ export default DashboardStats;
 // Reusable Stat Component
 function Stat({ label, value }) {
   return (
-    <div className="flex flex-col gap-1">
-      <span className="text-xs text-[var(--bg-light)]/70">
+    <div className="flex text-center flex-col gap-1">
+      <span className="text-xs text-[var(--bg-light)]">
         {label}
       </span>
       <span className="text-white text-lg font-semibold">
