@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { useSearchParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 function Auth() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const initialMode = searchParams.get("mode") === "signup" ? "signup" : "login";
-
   const [mode, setMode] = useState(initialMode);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +21,7 @@ function Auth() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {
@@ -36,8 +34,69 @@ function Auth() {
       return;
     }
 
-    console.log(`${mode.toUpperCase()} DATA`, formData);
+    try {
+      if (mode === "signup") {
+        await handleSignup();
+      } else {
+        await handleLogin();
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
+    }
   }
+
+
+  async function handleSignup() {
+    const res = await fetch("http://localhost:5000/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fullname: formData.fullname,
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Signup failed");
+      return;
+    }
+
+    alert("Signup successful. Please login.");
+    setMode("login");
+    navigate("/auth?mode=login");
+  }
+
+  async function handleLogin() {
+    const res = await fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Login failed");
+      return;
+    }
+
+    // store JWT
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+    navigate("/dashboard");
+  }
+
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)] px-4">
@@ -65,14 +124,17 @@ function Auth() {
         <div className="flex rounded-xl bg-black/20 p-1 mb-6">
           <button
             type="button"
-            onClick={() => {setMode("login")
-               navigate("/auth?mode=login")
+            onClick={() => {
+              setMode("login");
+              navigate("/auth?mode=login");
             }}
             className={`
               flex-1 py-2 rounded-lg text-sm transition
-              ${mode === "login"
-                ? "bg-[var(--accent-secondary)]/40 text-white"
-                : "text-[var(--bg-light)]"}
+              ${
+                mode === "login"
+                  ? "bg-[var(--accent-secondary)]/40 text-white"
+                  : "text-[var(--bg-light)]"
+              }
             `}
           >
             Login
@@ -80,12 +142,17 @@ function Auth() {
 
           <button
             type="button"
-            onClick={() => {setMode("signup"); navigate("/auth?mode=signup")}}
+            onClick={() => {
+              setMode("signup");
+              navigate("/auth?mode=signup");
+            }}
             className={`
               flex-1 py-2 rounded-lg text-sm transition
-              ${mode === "signup"
-                ? "bg-[var(--accent-secondary)]/40 text-white"
-                : "text-[var(--bg-light)]"}
+              ${
+                mode === "signup"
+                  ? "bg-[var(--accent-secondary)]/40 text-white"
+                  : "text-[var(--bg-light)]"
+              }
             `}
           >
             Sign Up
