@@ -42,10 +42,10 @@ function MarketWatch() {
   return (
     <section className="w-full p-9 pt-13 grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6">
         {/* Watchlist */}
-      <div className="rounded-2xl px-5 bg-[var(--accent-primary)] backdrop-blur-xl border border-white/5 p-5">
+      <div className="rounded-xl px-5 bg-[var(--accent-primary)] backdrop-blur-xl border border-white/5 p-5">
         <div className="flex justify-between p-2 mb-4">
           <h1 className="text-[var(--bg-primary)] font-medium text-xl ">Market Watchlist</h1>
-          <a href="" className="text-[var(--bg-primary)] font-medium text-m">Show all →</a>
+          <a href="" className="text-[var(--bg-primary)] font-medium hover:text-[var(--bg-secondary)] text-m">Show all →</a>
         </div>
 
 
@@ -91,7 +91,7 @@ function MarketWatch() {
       </div>
 
       {/* ================= RIGHT : CHART ================= */}
-      <div className="rounded-2xl bg-[var(--bg-secondary)]/20 backdrop-blur-xl border border-white/5 p-6">
+      <div className="rounded-xl bg-[var(--bg-secondary)]/20 backdrop-blur-xl border border-white/5 p-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
           <div>
