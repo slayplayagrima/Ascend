@@ -70,7 +70,7 @@ function Footer() {
       {/* Disclaimer box */}
       <div className="max-w-7xl mx-auto px-6 pb-8">
         <div className="rounded-xl border border-white/10 bg-white/5 mt-4 px-6 py-3 text-xs text-[var(--bg-light)] leading-relaxed">
-          <span className="font-semibold text-[var(--bg-light)]">Disclaimer:</span>{" "}
+          <span className="font-semibold text-[var(--accent-primary)]">Disclaimer:</span>{" "}
           ASCEND is a trading simulation platform for educational purposes only.
           No real money is involved in any transactions. Stock market investments
           are subject to market risks. Please read all related documents carefully

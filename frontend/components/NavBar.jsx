@@ -1,8 +1,12 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { UserRound } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function NavBar() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const profileRef = useRef(null);
+  const [open, setOpen] = useState(false);
 
   // close on outside click
   useEffect(() => {
@@ -35,26 +39,45 @@ function NavBar() {
 
       {/* CENTER: Navigation */}
       <div className="flex items-center gap-10 text-sm">
-        <NavItem label="Dashboard" active />
-        <NavItem label="Portfolio" />
-        <NavItem label="Learn" />
-        <NavItem label="Analytics" />
+        <NavItem 
+          label="Dashboard" 
+          isActive={location.pathname === "/dashboard"}
+          onClick={() => navigate("/dashboard")}
+        />
+        <NavItem 
+          label="Portfolio" 
+          isActive={location.pathname === "/portfolio"}
+          onClick={() => navigate("/portfolio")}
+        />
+        <NavItem 
+          label="Learn" 
+          isActive={location.pathname === "/learn"}
+          onClick={() => navigate("/learn")}
+        />
+        <NavItem 
+          label="Analytics" 
+          isActive={location.pathname === "/analytics"}
+          onClick={() => navigate("/analytics")}
+        />
       </div>
 
       {/* RIGHT: Profile */}
       <div className="relative" ref={profileRef}>
-        <div
-          className="
-            w-9 h-9 rounded-full
-            bg-[var(--bg-primary)]/80
-            flex items-center justify-center
-            text-[var(--accent-primary)]
-            text-sm font-medium
-            cursor-pointer
-          "
-        >
-          <UserRound />
-        </div>
+         <div
+        onClick={() => navigate("/profile")}
+        className="
+          w-9 h-9 rounded-full
+          bg-[var(--bg-primary)]/80
+          flex items-center justify-center
+          text-[var(--accent-primary)]
+          text-sm font-medium
+          cursor-pointer
+          hover:bg-[var(--bg-primary)]
+          transition
+        "
+      >
+        <UserRound size={18} />
+      </div>
       </div>
     </nav>
   );
@@ -63,20 +86,22 @@ function NavBar() {
 export default NavBar;
 
 /* ---------- Nav Item ---------- */
-function NavItem({ label, active = false }) {
+function NavItem({ label, isActive = false, onClick }) {
   return (
-    <span
+    <button
+      onClick={onClick}
       className={`
         cursor-pointer
         transition
+        font-medium
         ${
-          active
-            ? "text-white font-medium"
-            : "text-[var(--bg-primary)] hover:text-[var(--bg-light)]"
+          isActive
+            ? "text-white"
+            : "text-[var(--bg-primary)] hover:text-white"
         }
       `}
     >
       {label}
-    </span>
+    </button>
   );
 }

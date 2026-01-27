@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Hero from "../pages/Hero";
 import Auth from "../pages/Auth";
 import Dashboard from "../pages/Dashboard";
+import Profile from "../pages/Profile";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Hero />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
 
         {/* fallback */}
         <Route path="*" element={<Navigate to="/" />} />
