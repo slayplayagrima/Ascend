@@ -1,15 +1,22 @@
 import { useState, useMemo } from "react";
 import { ArrowUpRight, ArrowDownRight, Zap } from "lucide-react";
+import { usePortfolioStore } from "../store/usePortfolioStore";
 
-function QuickTradePanel({ holdings = [], balance = 1000000 }) {
+function QuickTradePanel() {
+  const { portfolio, buyStock, sellStock } = usePortfolioStore();
+
   const [side, setSide] = useState("BUY");
   const [stock, setStock] = useState("");
   const [orderType, setOrderType] = useState("MARKET");
   const [qty, setQty] = useState(0);
 
+  const balance = portfolio.balance || 0;
+  const holdings = portfolio.holdings || [];
+
   // Stocks user can select
   const selectableStocks = useMemo(() => {
     if (side === "SELL") return holdings;
+
     return [
       { symbol: "RELIANCE", price: 2456.75 },
       { symbol: "TCS", price: 3892.1 },
@@ -23,19 +30,34 @@ function QuickTradePanel({ holdings = [], balance = 1000000 }) {
   const price = selectedStock?.price || 0;
   const estimatedValue = qty * price;
 
-  function submitOrder() {
+  async function submitOrder() {
     if (!stock || qty <= 0) return;
 
-    const payload = {
-      side,
-      symbol: stock,
-      qty,
-      orderType,
-      price,
-    };
+    const token = localStorage.getItem("token");
 
-    console.log("ORDER EMITTED →", payload);
-    // later → socket.emit("placeOrder", payload)
+    if (side === "BUY") {
+      await buyStock(
+        {
+          symbol: stock,
+          quantity: qty,
+          price,
+        },
+        token
+      );
+    } else {
+      await sellStock(
+        {
+          symbol: stock,
+          quantity: qty,
+          price,
+        },
+        token
+      );
+    }
+
+    // optional reset
+    setQty(0);
+    setStock("");
   }
 
   return (
@@ -83,7 +105,7 @@ function QuickTradePanel({ holdings = [], balance = 1000000 }) {
         <option value="">Select stock</option>
         {selectableStocks.map(s => (
           <option key={s.symbol} value={s.symbol}>
-            {s.symbol} — ₹{s.price}
+            {s.symbol} — ₹{s.price || s.avgPrice}
           </option>
         ))}
       </select>

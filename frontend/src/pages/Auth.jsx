@@ -54,7 +54,7 @@ function Auth() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        fullname: formData.fullname,
+        fullName: formData.fullname,
         email: formData.email,
         password: formData.password,
       }),

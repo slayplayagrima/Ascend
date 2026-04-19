@@ -1,9 +1,23 @@
+import { usePortfolioStore } from "../../store/usePortfolioStore";
+
 function DashboardStats() {
-  const marketOpen = true; // dynamic later
-  const currentValue = 112500;
-  const invested = 100000;
+  const { portfolio } = usePortfolioStore();
+
+  const marketOpen = true; // keep as is for now
+
+  // 🔥 REAL DATA
+  const invested = portfolio.invested || 0;
+
+  const currentValue =
+    portfolio.holdings?.reduce(
+      (sum, h) => sum + h.quantity * (h.currentPrice || h.avgPrice),
+      0
+    ) || 0;
+
   const pnl = currentValue - invested;
-  const pnlPercent = ((pnl / invested) * 100).toFixed(1);
+
+  const pnlPercent =
+    invested > 0 ? ((pnl / invested) * 100).toFixed(1) : 0;
 
   return (
     <section className="w-full px-12 pt-15 pb-4">
@@ -32,7 +46,7 @@ function DashboardStats() {
           {/* Available Margin */}
           <Stat
             label="AVAILABLE MARGIN"
-            value="₹1,00,000.00"
+            value={`₹${(portfolio.balance || 0).toLocaleString("en-IN")}`}
           />
 
           {/* Current Value */}
@@ -44,8 +58,15 @@ function DashboardStats() {
               <span className="text-white text-lg font-semibold">
                 ₹{currentValue.toLocaleString("en-IN")}
               </span>
-              <span className="px-2 py-0.5 text-xs rounded-full bg-green-500/20 text-green-400">
-                +{pnlPercent}%
+              <span
+                className={`px-2 py-0.5 text-xs rounded-full ${
+                  pnl >= 0
+                    ? "bg-green-500/20 text-green-400"
+                    : "bg-red-500/20 text-red-400"
+                }`}
+              >
+                {pnl >= 0 ? "+" : ""}
+                {pnlPercent}%
               </span>
             </div>
           </div>
@@ -66,7 +87,8 @@ function DashboardStats() {
                 pnl >= 0 ? "text-green-400" : "text-red-400"
               }`}
             >
-              {pnl >= 0 ? "+" : "-"}₹{Math.abs(pnl).toLocaleString("en-IN")}
+              {pnl >= 0 ? "+" : "-"}₹
+              {Math.abs(pnl).toLocaleString("en-IN")}
             </span>
           </div>
         </div>
@@ -77,7 +99,7 @@ function DashboardStats() {
 
 export default DashboardStats;
 
-// Reusable Stat Component
+// Reusable Stat Component (unchanged)
 function Stat({ label, value }) {
   return (
     <div className="flex text-center flex-col gap-1">

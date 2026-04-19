@@ -1,6 +1,8 @@
 import { Wallet, RotateCcw } from "lucide-react";
+import { usePortfolioStore } from "../../store/usePortfolioStore";
 
 function SimulationWallet() {
+  const { portfolio } = usePortfolioStore();
   return (
     <section className="w-full mb-0 ">
       {/* Section Title */}
@@ -15,11 +17,11 @@ function SimulationWallet() {
         <div>
           <div className="flex items-center gap-2 text-xs text-[var(--bg-light)] mb-2">
             <Wallet size={14} />
-            AVAILABLE VIRTUAL BALANCE
+            AVAILABLE BALANCE
           </div>
 
           <p className="text-3xl pt-3 font-semibold text-[var(--accent-primary)]">
-            ₹1,00,000.00
+            ₹{portfolio.balance?.toLocaleString("en-IN")}
           </p>
 
           <p className="text-xs text-[var(--bg-light)] mt-2 max-w-md">

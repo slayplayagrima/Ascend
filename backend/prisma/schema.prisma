@@ -12,8 +12,46 @@ model User {
   fullName  String
   email     String   @unique
   password  String
+  phone     String?
+  employmentStatus  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+
+  portfolio Portfolio?
+  orders Order[]
 }
 
-  
+model Portfolio {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  balance   Float    @default(100000)
+  invested  Float    @default(0)
+
+  user      User     @relation(fields: [userId], references: [id])
+  holdings  Holding[]
+}
+
+model Holding {
+  id          String  @id @default(uuid())
+  portfolioId String
+  symbol      String
+  quantity    Float
+  avgPrice    Float
+
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
+
+  @@unique([portfolioId, symbol])
+}
+
+model Order {
+  id        String   @id @default(uuid())
+  userId    String
+  symbol    String
+  type      String   // BUY / SELL
+  quantity  Float
+  price     Float
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+}

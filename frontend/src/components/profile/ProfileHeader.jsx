@@ -1,6 +1,10 @@
-import { ShieldCheck, MapPin } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
+import { useUserStore } from "../../store/useUserStore";
 
 function ProfileHeader() {
+  const { user } = useUserStore();
+  console.log("USER DATA →", user);
+
   return (
     <section className="rounded-2xl backdrop-blur-xl  p-6 mx-9 mt-6 mb-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -9,14 +13,14 @@ function ProfileHeader() {
         <div className="flex items-center gap-5">
           {/* Avatar */}
           <div className="w-16 h-16 rounded-full bg-[var(--bg-secondary)]/20 flex items-center justify-center text-[var(--accent-primary)] text-xl font-semibold flex-shrink-0">
-            JD
+            {user?.fullName?.slice(0, 2).toUpperCase() || "U"}
           </div>
 
           {/* Name & Meta */}
           <div className="flex-1">
             <div className="flex items-center gap-3 flex-wrap">
               <h2 className="text-xl font-semibold text-white">
-                John Doe
+                {user?.fullName || "User"}
               </h2>
 
               <span className="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-400/20">
@@ -25,7 +29,7 @@ function ProfileHeader() {
             </div>
 
             <p className="text-sm text-[var(--bg-light)] mt-0.5">
-              john.doe@ascend.in
+              {user?.email}
             </p>
 
             <div className="flex items-center gap-4 mt-2 text-xs text-[var(--bg-light)] flex-wrap">

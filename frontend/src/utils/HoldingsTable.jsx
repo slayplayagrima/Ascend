@@ -1,70 +1,10 @@
+import { usePortfolioStore } from "../store/usePortfolioStore";
+
 function HoldingsTable({ maxHeight = "420px" }) {
-  const holdings = [
-    {
-      stock: "RELIANCE",
-      company: "Reliance Industries",
-      qty: 50,
-      avg: 2400,
-      ltp: 2450.5,
-      pnl: 2525,
-    },
-    {
-      stock: "HDFCBANK",
-      company: "HDFC Bank Ltd",
-      qty: 100,
-      avg: 1500,
-      ltp: 1480,
-      pnl: -2000,
-    },
-    {
-      stock: "TATASTEEL",
-      company: "Tata Steel",
-      qty: 200,
-      avg: 145,
-      ltp: 148.2,
-      pnl: 640,
-    },
-    {
-      stock: "INFY",
-      company: "Infosys Ltd",
-      qty: 80,
-      avg: 1480,
-      ltp: 1523.8,
-      pnl: 3500,
-    },
-    {
-      stock: "ICICIBANK",
-      company: "ICICI Bank",
-      qty: 120,
-      avg: 950,
-      ltp: 1087.25,
-      pnl: 16470,
-    },
-    {
-      stock: "SBIN",
-      company: "State Bank of India",
-      qty: 150,
-      avg: 520,
-      ltp: 575.8,
-      pnl: 8370,
-    },
-    {
-      stock: "ITC",
-      company: "ITC Ltd",
-      qty: 300,
-      avg: 410,
-      ltp: 445,
-      pnl: 10500,
-    },
-    {
-      stock: "TCS",
-      company: "Tata Consultancy Services",
-      qty: 60,
-      avg: 3950,
-      ltp: 3892.1,
-      pnl: -3450,
-    },
-  ];
+  const { portfolio } = usePortfolioStore();
+
+  // 🔥 REAL DATA FROM BACKEND
+  const holdings = portfolio.holdings || [];
 
   return (
     <div
@@ -84,6 +24,7 @@ function HoldingsTable({ maxHeight = "420px" }) {
           {holdings.length} Positions
         </span>
       </div>
+
       {/* Table Header */}
       <div className="grid grid-cols-6 text-xs px-5 uppercase tracking-wide text-[var(--bg-primary)] font-semibold border-b border-white/10 pb-2">
         <span className="col-span-2">Stock</span>
@@ -99,10 +40,13 @@ function HoldingsTable({ maxHeight = "420px" }) {
         style={{ maxHeight }}
       >
         {holdings.map((h, i) => {
-          const isPositive = h.pnl >= 0;
+          const ltp = h.currentPrice || h.avgPrice; // 🔥 fallback
+          const pnl = (ltp - h.avgPrice) * h.quantity;
+          const isPositive = pnl >= 0;
+
           return (
             <div
-              key={i}
+              key={h.id || i}
               className="
                 grid grid-cols-6 items-center
                 py-3
@@ -111,18 +55,20 @@ function HoldingsTable({ maxHeight = "420px" }) {
               "
             >
               <div className="col-span-2">
-                <p className="text-white font-medium">{h.stock}</p>
+                <p className="text-white font-medium">{h.symbol}</p>
                 <p className="text-xs text-[var(--bg-light)]">
-                  {h.company}
+                  {h.symbol} Ltd
                 </p>
               </div>
 
-              <span className="text-white">{h.qty}</span>
+              <span className="text-white">{h.quantity}</span>
+
               <span className="text-[var(--bg-light)]">
-                ₹{h.avg.toLocaleString()}
+                ₹{h.avgPrice.toLocaleString("en-IN")}
               </span>
+
               <span className="text-white">
-                ₹{h.ltp.toLocaleString()}
+                ₹{ltp.toLocaleString("en-IN")}
               </span>
 
               <span
@@ -133,7 +79,7 @@ function HoldingsTable({ maxHeight = "420px" }) {
                 }`}
               >
                 {isPositive ? "+" : "-"}₹
-                {Math.abs(h.pnl).toLocaleString()}
+                {Math.abs(pnl).toLocaleString("en-IN")}
               </span>
             </div>
           );
@@ -154,5 +100,3 @@ function HoldingsTable({ maxHeight = "420px" }) {
 }
 
 export default HoldingsTable;
-
-/* ---------- Sub Components ---------- */

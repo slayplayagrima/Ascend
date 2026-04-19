@@ -5,8 +5,20 @@ import SimulationWallet from "../components/profile/SimulationWallet";
 import TradingPreferences from "../components/profile/TradingPreferences";
 import SecuritySessions from "../components/profile/SecuritySessions";
 import Footer from "../components/Footer";
+import { useUserStore } from "../store/useUserStore";
+import { useEffect } from "react";
+import { usePortfolioStore } from "../store/usePortfolioStore";
 
 function Profile() {
+  const { fetchUser } = useUserStore();
+  const { fetchPortfolio } = usePortfolioStore();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    fetchUser(token);
+    fetchPortfolio(token);
+  }, [fetchUser, fetchPortfolio]);
+  
   return (
     <main className="max-w-[1400px] mx-auto">
       <NavBar />
