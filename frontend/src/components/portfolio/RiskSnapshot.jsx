@@ -1,8 +1,7 @@
 export default function RiskSnapshot() {
   return (
     <div
-      className="p-5 rounded-xl border border-white/10 relative"
-      style={{ background: "var(--bg-secondary)" }}
+      className="p-5 bg-[var(--bg-secondary)]/20 rounded-xl border border-white/10 relative"
     >
       {/* Title */}
       <h3 className="font-semibold mb-4">Risk Snapshot</h3>

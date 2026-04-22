@@ -7,8 +7,7 @@ export default function SectorAllocation() {
 
   return (
     <div
-      className="p-5 rounded-xl border border-white/10"
-      style={{ background: "var(--bg-secondary)" }}
+      className="p-5 bg-[var(--bg-secondary)]/20 rounded-xl border border-white/10"
     >
       {/* HEADER */}
       <div className="flex justify-between items-center mb-4">

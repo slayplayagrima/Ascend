@@ -1,8 +1,8 @@
 export default function CapitalUsage() {
   return (
     <div
-      className="p-5 rounded-xl border border-white/10"
-      style={{ background: "var(--bg-secondary)" }}
+      className="p-5 bg-[var(--bg-secondary)]/20 rounded-xl border border-white/10"
+
     >
       <h3 className="font-semibold mb-4">Capital Usage</h3>
 

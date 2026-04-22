@@ -21,7 +21,7 @@ function DashboardStats() {
 
   return (
     <section className="w-full px-12 pt-15 pb-4">
-      <div className="flex bg-[var(--accent-)] items-center justify-between">
+      <div className="flex items-center justify-between">
 
         {/* LEFT: Market Status */}
         <div className="flex items-center gap-2">

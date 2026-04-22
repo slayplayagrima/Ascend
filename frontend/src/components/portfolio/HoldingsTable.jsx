@@ -6,8 +6,7 @@ export default function HoldingsTable() {
 
   return (
     <div
-      className="rounded-xl border border-white/10 p-5"
-      style={{ background: "var(--bg-secondary)" }}
+      className="rounded-xl border bg-[var(--bg-secondary)]/20 border-white/10 p-5"
     >
       {/* HEADER */}
       <div className="flex justify-between mb-4">

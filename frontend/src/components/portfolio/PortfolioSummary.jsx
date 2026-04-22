@@ -25,8 +25,8 @@ export default function PortfolioSummary() {
 function Card({ title, value, highlight }) {
   return (
     <div
-      className="p-4 rounded-xl border border-white/10"
-      style={{ background: "var(--bg-secondary)" }}
+      className="p-4 bg-[var(--bg-secondary)]/20 rounded-xl border border-white/10"
+      
     >
       <p className="text-xs opacity-60 mb-2">{title}</p>
 

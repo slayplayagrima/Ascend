@@ -10,7 +10,7 @@ function HoldingsTable({ maxHeight = "420px" }) {
     <div
       className="
         rounded-2xl
-        bg-[var(--accent-primary)]
+        bg-[var(--bg-secondary)]/20
         backdrop-blur-xl
         border border-white/10
         p-6
@@ -19,14 +19,14 @@ function HoldingsTable({ maxHeight = "420px" }) {
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-8 ">
-        <h2 className="text-3xl font-bold text-[var(--bg-primary)]">Holdings</h2>
-        <span className="text-sm font-semibold text-[var(--bg-primary)]">
+        <h2 className="text-3xl font-bold text-white">Holdings</h2>
+        <span className="text-sm font-semibold text-white">
           {holdings.length} Positions
         </span>
       </div>
 
       {/* Table Header */}
-      <div className="grid grid-cols-6 text-xs px-5 uppercase tracking-wide text-[var(--bg-primary)] font-semibold border-b border-white/10 pb-2">
+      <div className="grid grid-cols-6 text-xs px-5 uppercase tracking-wide text-[var(--bg-light)] font-semibold border-b border-white/10 pb-2">
         <span className="col-span-2">Stock</span>
         <span>Qty</span>
         <span>Avg</span>
@@ -36,11 +36,11 @@ function HoldingsTable({ maxHeight = "420px" }) {
 
       {/* Scrollable Table */}
       <div
-        className="mt-2 overflow-y-auto pr-2 bg-[var(--bg-primary)] custom-scrollbar p-4 pl-6 pr-6 rounded-lg"
+        className="mt-2 overflow-y-auto pr-2 bg-[var(--accent-primary)] custom-scrollbar p-1 pl-5 pr-6 rounded-lg"
         style={{ maxHeight }}
       >
         {holdings.map((h, i) => {
-          const ltp = h.currentPrice || h.avgPrice; // 🔥 fallback
+          const ltp = h.currentPrice || h.avgPrice; // fallback
           const pnl = (ltp - h.avgPrice) * h.quantity;
           const isPositive = pnl >= 0;
 
@@ -55,26 +55,24 @@ function HoldingsTable({ maxHeight = "420px" }) {
               "
             >
               <div className="col-span-2">
-                <p className="text-white font-medium">{h.symbol}</p>
-                <p className="text-xs text-[var(--bg-light)]">
-                  {h.symbol} Ltd
-                </p>
+                <p className="text-[var(--bg-primary)] font-medium">{h.symbol}</p>
+               
               </div>
 
-              <span className="text-white">{h.quantity}</span>
+              <span className="text-[var(--bg-primary)]">{h.quantity}</span>
 
-              <span className="text-[var(--bg-light)]">
+              <span className="text-[var(--bg-primary)]">
                 ₹{h.avgPrice.toLocaleString("en-IN")}
               </span>
 
-              <span className="text-white">
+              <span className="text-[var(--bg-primary)]">
                 ₹{ltp.toLocaleString("en-IN")}
               </span>
 
               <span
                 className={`text-right font-medium ${
                   isPositive
-                    ? "text-green-400"
+                    ? "text-green-900"
                     : "text-rose-400"
                 }`}
               >

@@ -1,12 +1,10 @@
 export default function StrategyTip() {
   return (
     <div
-      className="p-5 rounded-xl border border-green-500/20"
-      style={{ background: "var(--bg-secondary)" }}
+      className="p-5 bg-[var(--bg-secondary)]/20 rounded-xl border border-green-500/20"
     >
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-green-400">💡</span>
-        <h3 className="text-green-400 font-semibold text-sm">
+        <h3 className="text-white font-semibold text-sm">
           Portfolio Strategy Tip
         </h3>
       </div>

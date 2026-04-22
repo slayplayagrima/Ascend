@@ -2,7 +2,7 @@ export default function StressTest() {
   return (
     <div>
       <h2 className="mb-4 font-semibold text-lg flex items-center gap-2">
-        📊 Portfolio Stress Test
+       Portfolio Stress Test
       </h2>
 
       <div className="grid grid-cols-3 gap-5">
@@ -12,7 +12,7 @@ export default function StressTest() {
           desc="If NIFTY 50 drops by 5% suddenly due to macro events."
           impact="-4,200"
           type="loss"
-          border="border-red-500/30"
+          border="border-white/10"
         />
 
         <StressCard
@@ -21,7 +21,7 @@ export default function StressTest() {
           desc="If the Banking sector (your largest holding) drops by 10%."
           impact="-8,100"
           type="loss"
-          border="border-yellow-500/30"
+          border="border-white/10"
         />
 
         <StressCard
@@ -30,7 +30,7 @@ export default function StressTest() {
           desc="If the market maintains its trajectory and breaks resistance."
           impact="+3,150"
           type="gain"
-          border="border-green-500/30"
+          border="border-white/10"
         />
       </div>
     </div>
@@ -40,8 +40,7 @@ export default function StressTest() {
 function StressCard({ title, tag, desc, impact, type, border }) {
   return (
     <div
-      className={`p-5 rounded-xl border ${border}`}
-      style={{ background: "var(--bg-secondary)" }}
+      className={`p-5 bg-[var(--bg-secondary)]/20  rounded-xl border ${border}`}
     >
       {/* HEADER */}
       <div className="flex justify-between items-center mb-2">
